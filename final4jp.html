@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> My Table </title>
+<meta charset="UTF-8"/>
+<style>
+        #text
+        { text-align:center; 
+          padding:200px;
+        }
+    
+</style>     
+<script>
+    
+	   function viewJSON(what) 
+    
+    {	var URL = what.URL.value;
+        if(URL=="")
+        {
+            window.alert("ERROR: Field cannot be empty. Please enter a valid file name!");
+            return false;
+        }
+        else 
+        function loadJSON(url)
+        { 
+            xmlhttp=new XMLHttpRequest();
+            xmlhttp.overrideMimeType("application/json");
+            xmlhttp.open("GET",url,false);
+            try 
+        {   
+            xmlhttp.send();
+            var statusin=xmlhttp.status;
+            if (statusin==200 || statusin==0)
+            {
+                response=xmlhttp.responseText;
+                // console.log(response);
+                emptyxy =JSON.stringify({});
+                // console.log(emptyxy);
+                 if (response!=emptyxy)
+                { jsonObj=JSON.parse(response);
+                return jsonObj; }
+                else
+                    {
+                        window.alert("ERROR: This is an empty JSON file");
+                        return false;
+                    }
+                
+            }
+            else
+            {
+                throw(e);
+            }
+        }
+            catch(e)       
+            {
+            window.alert("JSON File does not exist");
+            return false;
+            }   
+    
+        }
+            jsonObj = loadJSON(URL);
+            if(!jsonObj){
+                return false;
+            }
+           /*  if (window.ActiveXObject) 
+        {
+             if (jsonObj.parseError.errorCode != 0) 
+            {
+            var myErr = jsonObj.parseError;
+            generateError(jsonObj);
+            hWin = window.open("", "Error", "height=300,width=340");
+            hWin.document.write(html_text);
+            } 
+              else
+            {  generateHTML(jsonObj);
+               hWin = window.open("", "Assignment4", "height=800,width=600");
+               hWin.document.write(html_text); 
+            } 
+        } */
+             else
+             {  
+                jsonObj.onload=generateHTML(jsonObj);
+                console.log(jsonObj.onload);
+                if(!jsonObj.onload){
+                    return false;
+                }
+                hWin = window.open("", "Assignment4", "height=800,width=600");
+                hWin.document.write(html_text); 
+                hWin.document.close();  
+             } 
+	            
+    }
+  
+            function generateHTML(jsonObj)  
+    {
+            
+            // html_text="<html><head><title>JSON Parse Result</title></head><body>";
+            // html_text+="<table width=100% height=100% border='2'>"; 
+
+            if ((typeof(jsonObj.Mainline.Table.Row))==='undefined')
+                {
+                    window.alert("No Company data to display in the JSON File");
+                    return false;
+                }
+        
+            else
+            {
+            // root=jsonObj.DocumentElement; 
+            html_text="<html><head><title>JSON Parse Result</title></head><body>";
+            html_text+="<table width=100% height=100% border='2'>"; 
+            companies=jsonObj.Mainline.Table.Row; 
+            companyNodeList=companies[0];
+            html_text+="<tbody>"; 
+            html_text+="<tr>"; 
+            x=0;  y=0;
+	       // output the headers
+            var header_keys = Object.keys(companyNodeList);
+            for(i=0;i<header_keys.length;i++)           
+            { 
+                headerdisplay=jsonObj.Mainline.Table.Header.Data[i];
+                // console.log(headerdisplay);
+                header=header_keys[i];
+                /* if(header=="Company") {  header=headerdisplay;  x=120;  y=55;  }				   	
+                if(header=="Ships") {  header="Number of Ships";  x=200;  y=67;  }
+                if(header=="Hubs")   { header="HQ / Info"; }
+                if(header=="Market share")   header=""+headerdisplay+""; 				 
+                if(header=="HomePage")   header="HomePage";		*/	       
+                html_text+="<th>"+headerdisplay+"</th>";    			
+	        } 
+
+                html_text+="</tr>"; 
+                // output out the values
+                for(i=0;i<companies.length;i++) //do for all companies (one per row)
+                {                 
+                    companyNodeList=companies[i]; //get properties of a company (an object)
+                    html_text+="<tr>";      //start a new row of the output table
+                    var company_keys = Object.keys(companyNodeList);
+                    for(j=0;j<company_keys.length;j++) 
+	           {
+                    prop = company_keys[j];
+                    if(company_keys[j] == "Hubs")
+                {
+                    var hubs = JSON.stringify(companyNodeList[prop])
+                    var key_hubs = JSON.parse(hubs).Hub;
+                    html_text+="<td width=20%> <ul>"
+                    for (var x in key_hubs)
+                {       
+                    if (x=="0")
+                    {
+                        html_text+="<li><b>"+[key_hubs[x]]+"</b></li>"; 
+                    }
+                    else
+                    {
+                        html_text+="<li>"+[key_hubs[x]]+"</li>";
+                    }
+                }
+                     html_text+="</ul></td>";
+                }        
+                    else if(company_keys[j] == "HomePage")
+                {
+                   
+                    html_text+="<td width=20%><a href='"+ companyNodeList[prop] +"'/>" +companyNodeList[prop]+ "</td>";
+                }
+                    else if(company_keys[j]=="Logo")		
+		        {//handle images separately		
+                   
+                   html_text+="<td width=20%><img src='"+ companyNodeList[prop] +"' width='300' height='150'></td>";
+                } 
+                    else 
+                {		
+                    html_text+="<td>"+ companyNodeList[prop] +"</td>"; 
+                } 	  
+                   
+	           } 		           
+                    html_text+="</tr>";            
+                }
+                
+            }
+                    html_text+="</tbody>"; 
+                    html_text+="</table>";           
+                    html_text+="</body></html>";
+            return true;
+    }
+    
+</script>
+    
+</head>
+    
+<body>
+	<div id="text"> <h4> Enter URL for Container Shipping Company List JSON File </h4> 
+	<form name="firstform" method="POST" id="location">
+	<input type="text" name="URL" maxlength="255" size="30" value="containerlist.json">
+	<br/> <br/>
+	<input type ="button" name="submit" value="Submit Query" onclick="viewJSON(this.form)" />
+	</form>
+    </div>   
+</body>
+    
+</html>

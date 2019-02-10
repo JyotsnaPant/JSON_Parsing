@@ -1,0 +1,77 @@
+﻿{
+  "Mainline": {
+    "Table": {
+      "Header": {
+        "Data": [
+          "Company",
+          "Number of Ships",
+          "HQ / Info",
+          "Market share",
+          "HomePage",
+          "Logo"
+        ]
+      },
+      "Row": [
+          
+        {
+          "Company": "Maersk Line",
+          "Ships": "763",
+          "Hubs": {
+            "Hub": [
+              "Copenhagen, Denmark",
+              "Maersk Line is the global container division and the largest operating unit of the Maersk Group, a Danish business conglomerate."
+            ]
+          },
+          "Market": "18.0%",
+          "HomePage": "https://www.maersk.com/",
+          "Logo": "http://csci571.com/hw/hw4/Maersk_shipping_container.jpeg"
+        },
+          
+        {
+          "Company": "Mediterranean Shipping Company",
+          "Ships": "469",
+          "Hubs": {
+            "Hub": [
+              "Geneva, Switzerland",
+              "The Geneva-headquartered company operates in all major ports of the world. MSC's most important port is Antwerp in Belgium. MSC Cruises is a division of the company focused on holiday cruises."
+            ]
+          },
+          "Market": "14.6%",
+          "HomePage": "https://www.msc.com/",
+          "Logo": "http://csci571.com/hw/hw4/MSC_container.jpeg"
+        },  
+          
+       
+          
+        {
+          "Company": "China Ocean Shipping",
+          "Ships": "277",
+          "Hubs": {
+            "Hub": [
+              "Beijing, China",
+              "China Ocean Shipping (Group) Company (Chinese: 中国远洋运输（集团）总公司), known as COSCO or COSCO Group, is a Chinese state-owned shipping and logistics services supplier company. Its headquarters is in Ocean Plaza in the Xicheng District in Beijing."
+            ]
+          },
+          "Market": "8.0%",
+          "HomePage": "http://en.coscocs.com/",
+          "Logo": "http://csci571.com/hw/hw4/COSCO_container.jpeg"
+        }, 
+          
+        {
+          "Company": "Hapag-Lloyd",
+          "Ships": "219",
+          "Hubs": {
+            "Hub": [
+              "Hamburg, Germany",
+              "Hapag-Lloyd AG is a multinational German-based transportation company. It is composed of a cargo container shipping line, Hapag-Lloyd AG, which in turn owns other subsidiaries such as Hapag-Lloyd Cruises."
+            ]
+          },
+          "Market": "5.2%",
+          "HomePage": "https://www.hapag-lloyd.com/",
+          "Logo": "http://csci571.com/hw/hw4/Hapag-Lloyd_shipping_container.jpeg"
+        }        
+        
+      ]
+    }
+  }
+}
